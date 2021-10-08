@@ -16,7 +16,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         # 设置背景色
-        # self.bg_color = (self.settings.bg_color)
+        self.bg_color = (230, 230, 230)
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -26,7 +26,7 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit()
             #每次循环时都重绘屏幕。
-            # self.screen.fill(self.bg_color)
+            self.screen.fill(self.bg_color)
             # self.ship.blitme()
             # 让最近的绘制的屏幕可见
             pygame.display.flip()
