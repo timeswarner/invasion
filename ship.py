@@ -8,12 +8,20 @@ class Ship:
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
 
-        #  加在飞船图像并获取其外接矩形
-        self.image = pygame.image.load("invasion/images/ship.bmp")
+        # 加载飞船图像并获取其外接矩形
+        self.image = pygame.image.load("alien_invasion/images/ship.bmp")
         self.rect = self.image.get_rect()
 
         # 对于每艘新飞船，都将其放在屏幕底部的中央
         self.rect.midbottom = self.screen_rect.midbottom
+
+        # 移动标志
+        self.moving_right = False
+    
+    def update(self):
+        """根据移动标志调整飞船的位置"""
+        if self.moving_right:
+            self.rect.centerx += 1
 
     def blitme(self):
         """在指定位置绘制飞船"""

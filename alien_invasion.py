@@ -23,9 +23,9 @@ class AlienInvasion:
         """开始游戏的主循环"""
         while True:
             # 监视鼠标和键盘事件
-            gf.check_events()
+            gf.check_events(self.ship)
+            self.ship.update()
             gf.update_screen(ai.settings, self.screen, self.ship)
-
 
 
 if __name__ == '__main__':
