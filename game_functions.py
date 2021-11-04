@@ -9,7 +9,7 @@ def check_keydown_events(event, ship):
         ship.moving_left = True
     elif event.key == pygame.K_LEFT:
         ship.move_left = True
-    elif event.key == pygame.K_q:
+    elif event.key == pygame.K_ESCAPE:
         sys.exit()
 
 def check_keyup_events(event, ship):
