@@ -2,6 +2,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 import game_functions as gf
 
 
@@ -13,11 +14,15 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
 
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self.settings, self)
+        self.bullets = pygame.sprite.Group()
+
+
+
         # 设置背景色
         self.bg_color = (self.settings.bg_color)
 
@@ -25,9 +30,10 @@ class AlienInvasion:
         """开始游戏的主循环"""
         while True:
             # 监视鼠标和键盘事件
-            gf.check_events(self.ship)
+            gf._check_events(self)
             self.ship.update()
-            gf.update_screen(ai.settings, self.screen, self.ship)
+            self.bullets.update()
+            gf.update_screen(self)
 
 
 if __name__ == '__main__':

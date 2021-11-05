@@ -1,39 +1,48 @@
 import sys 
 import pygame
+from bullet import Bullet
 
-def check_keydown_events(event, ship):
+def _check_keydown_events(self, event):
     """相应按键"""
     if event.key == pygame.K_RIGHT:
-        ship.moving_right = True
-    if event.key == pygame.K_LEFT:
-        ship.moving_left = True
+        self.ship.moving_right = True
     elif event.key == pygame.K_LEFT:
-        ship.move_left = True
+        self.ship.moving_left = True
     elif event.key == pygame.K_ESCAPE:
         sys.exit()
+    elif event.key == pygame.K_SPACE:
+        _fire_bullet(self)
 
-def check_keyup_events(event, ship):
+def _check_keyup_events(self, event):
     if event.key == pygame.K_RIGHT:
-        ship.moving_right = False
+        self.ship.moving_right = False
     if event.key == pygame.K_LEFT:
-        ship.moving_left = False
+        self.ship.moving_left = False
 
-def check_events(ship):
+def _fire_bullet(self):
+    """创建一颗子弹，并将其加入编组bullets中。"""
+    new_bullet = Bullet(self)
+    self.bullets.add(new_bullet)
+
+def _check_events(self):
     """响应按键和鼠标事件"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ship)
+            _check_keydown_events(self, event)
         elif event.type == pygame.KEYUP:
-            check_keyup_events(event, ship)
+            _check_keyup_events(self, event)
             
-def update_screen(ai_settings, screen, ship):
+def update_screen(self):
     """更新屏幕上的图像，并切换到新屏幕"""
-    screen.fill(ai_settings.bg_color)
+    self.screen.fill(self.settings.bg_color)
 
     # 每次循环时都要重绘屏幕
-    ship.blitme()
+    self.ship.blitme()
+
+    for bullet in self.bullets.sprites():
+        bullet.draw_bullet()
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()
